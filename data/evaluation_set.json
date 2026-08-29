@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Apa pengertian wakaf menurut Undang-Undang No. 41 Tahun 2004?",
+    "ground_truth": "Wakaf adalah perbuatan hukum wakif untuk memisahkan dan/atau menyerahkan sebagian harta benda miliknya untuk dimanfaatkan selamanya atau untuk jangka waktu tertentu sesuai dengan kepentingannya guna keperluan ibadah dan/atau kesejahteraan umum menurut syariah."
+  },
+  {
+    "question": "Apa yang dimaksud dengan wakif?",
+    "ground_truth": "Wakif adalah pihak yang mewakafkan harta benda miliknya."
+  },
+  {
+    "question": "Siapa saja pihak yang dapat menjadi wakif?",
+    "ground_truth": "Wakif meliputi perseorangan (baik warga negara Indonesia maupun asing), organisasi, atau badan hukum."
+  },
+  {
+    "question": "Apa syarat bagi wakif perseorangan agar sah berwakaf?",
+    "ground_truth": "Wakif perseorangan hanya dapat melakukan wakaf apabila memenuhi syarat: dewasa, berakal sehat, tidak terhalang melakukan perbuatan hukum, dan merupakan pemilik sah atas harta benda wakaf."
+  },
+  {
+    "question": "Apa pengertian nazhir wakaf?",
+    "ground_truth": "Nazhir adalah pihak yang menerima harta benda wakaf dari wakif untuk dikelola dan dikembangkan sesuai dengan peruntukannya."
+  },
+  {
+    "question": "Apa saja jenis nazhir wakaf menurut peraturan perundang-undangan di Indonesia?",
+    "ground_truth": "Nazhir terdiri atas perseorangan, organisasi, atau badan hukum."
+  },
+  {
+    "question": "Apa saja persyaratan untuk menjadi nazhir perseorangan?",
+    "ground_truth": "Syarat nazhir perseorangan adalah warga negara Indonesia, beragama Islam, dewasa, amanah, mampu secara jasmani dan rohani, serta tidak terhalang melakukan perbuatan hukum."
+  },
+  {
+    "question": "Apa yang dimaksud dengan wakaf uang?",
+    "ground_truth": "Wakaf uang adalah wakaf berupa uang dalam bentuk mata uang rupiah yang dikelola secara produktif, hasilnya disalurkan untuk penerima manfaat (maukuf alaih)."
+  },
+  {
+    "question": "Apa perbedaan utama antara wakaf uang dan wakaf melalui uang?",
+    "ground_truth": "Wakaf uang adalah wakaf di mana pokok wakafnya berupa uang yang harus diinvestasikan/dikelola secara produktif, sedangkan wakaf melalui uang adalah wakaf di mana uang digunakan sebagai sarana untuk membeli/membangun aset fisik (seperti masjid, sekolah, RS) yang kemudian diwakafkan."
+  },
+  {
+    "question": "Bagaimana hukum wakaf uang menurut Fatwa DSN-MUI?",
+    "ground_truth": "Wakaf uang (Cash Waqf) hukumnya jawaz (boleh), dan nilai pokok wakaf uang harus dijamin kelestariannya, tidak boleh dijual, dihibahkan, dan/atau diwariskan."
+  },
+  {
+    "question": "Lembaga apa yang berwenang menerima pendaftaran wakaf uang dari wakif?",
+    "ground_truth": "Lembaga Keuangan Syariah Penerima Wakaf Uang (LKS-PWU) yang ditunjuk oleh Menteri Agama."
+  },
+  {
+    "question": "Apa peran Badan Wakaf Indonesia (BWI) dalam perwakafan di Indonesia?",
+    "ground_truth": "BWI adalah lembaga independen yang bertugas membina nazhir, mengelola dan mengembangkan harta benda wakaf berskala nasional/internasional, memberikan persetujuan penukaran harta benda wakaf, serta memberikan rekomendasi kepada Menteri Agama."
+  },
+  {
+    "question": "Berapa bagian hak nazhir atas hasil pengelolaan dan pengembangan wakaf?",
+    "ground_truth": "Nazhir berhak menerima imbalan dari hasil bersih pengelolaan dan pengembangan harta benda wakaf paling banyak 10% (sepuluh persen)."
+  },
+  {
+    "question": "Apa saja jenis harta benda wakaf menurut UU No. 41 Tahun 2004?",
+    "ground_truth": "Harta benda wakaf terdiri dari benda tidak bergerak (seperti tanah, bangunan, tanaman) dan benda bergerak (seperti uang, logam mulia, surat berharga, kendaraan, hak kekayaan intelektual, hak sewa)."
+  },
+  {
+    "question": "Apakah harta benda wakaf yang sudah diwakafkan boleh dialihkan atau dijual?",
+    "ground_truth": "Harta benda wakaf yang sudah diwakafkan dilarang dijadikan jaminan, disita, dihibahkan, dijual, diwariskan, ditukar, atau dialihkan dalam bentuk hak lain."
+  },
+  {
+    "question": "Dalam kondisi apa harta benda wakaf boleh ditukar atau diubah statusnya?",
+    "ground_truth": "Penukaran harta benda wakaf hanya boleh dilakukan jika digunakan untuk kepentingan umum sesuai dengan Rencana Tata Ruang Wilayah (RTRW) dan tidak bertentangan dengan syariah, setelah memperoleh izin tertulis dari Menteri Agama atas persetujuan BWI."
+  },
+  {
+    "question": "Apa saja persyaratan pendaftaran nazhir wakaf uang ke BWI?",
+    "ground_truth": "Persyaratan pendaftaran nazhir wakaf uang meliputi surat permohonan, profil nazhir, fotokopi KTP para pengurus, surat pernyataan bersedia diaudit, sertifikat pelatihan wakaf, dan surat rekomendasi dari Kantor Kemenag setempat."
+  },
+  {
+    "question": "Berapa jangka waktu permohonan pendaftaran tanah wakaf setelah penandatanganan Akta Ikrar Wakaf (AIW)?",
+    "ground_truth": "Nazhir wajib mendaftarkan tanah wakaf kepada instansi yang berwenang (BPN) paling lambat 7 (tujuh) hari kerja sejak ditandatanganinya Akta Ikrar Wakaf (AIW)."
+  },
+  {
+    "question": "Apa itu Akta Ikrar Wakaf (AIW)?",
+    "ground_truth": "AIW adalah akta yang diterbitkan oleh Pejabat Pembuat Akta Ikrar Wakaf (PPAIW) yang memuat ikrar penyerahan harta benda wakaf dari wakif kepada nazhir."
+  },
+  {
+    "question": "Siapa yang bertindak sebagai Pejabat Pembuat Akta Ikrar Wakaf (PPAIW)?",
+    "ground_truth": "PPAIW adalah Kepala Kantor Urusan Agama (KUA) kecamatan setempat untuk wakaf tanah/benda tidak bergerak, atau pejabat LKS-PWU yang ditunjuk untuk wakaf uang."
+  },
+  {
+    "question": "Apa saja sebab seorang nazhir dapat diberhentikan dari jabatannya?",
+    "ground_truth": "Nazhir dapat diberhentikan karena meninggal dunia (untuk perseorangan), bubar (untuk organisasi/badan hukum), mengundurkan diri, tidak melaksanakan kewajibannya, melakukan pelanggaran berat, atau dihukum pidana yang telah berkekuatan hukum tetap."
+  },
+  {
+    "question": "Bagaimana penyelesaian sengketa perwakafan jika terjadi perselisihan?",
+    "ground_truth": "Penyelesaian sengketa dilakukan terlebih dahulu melalui musyawarah untuk mencapai mufakat. Jika gagal, sengketa dapat diselesaikan melalui mediasi, arbitrase, atau Pengadilan Agama."
+  },
+  {
+    "question": "Apa itu wakaf produktif?",
+    "ground_truth": "Wakaf produktif adalah skema pengelolaan donasi wakaf dengan menginvestasikan atau memproduktifkan harta wakaf pada sektor riil atau keuangan syariah, di mana surplusnya disalurkan untuk kesejahteraan umat."
+  },
+  {
+    "question": "Berikan contoh pengelolaan wakaf produktif pada zaman Rasulullah SAW.",
+    "ground_truth": "Contohnya adalah wakaf sumur Raumah oleh sahabat Utsman bin Affan dan wakaf kebun kurma Bairaha oleh sahabat Abu Thalhah untuk kepentingan kaum muslimin."
+  },
+  {
+    "question": "Apa saja bentuk pelaporan yang wajib diserahkan oleh nazhir wakaf uang?",
+    "ground_truth": "Nazhir wajib menyampaikan laporan pengelolaan wakaf uang secara berkala setiap 6 bulan kepada Badan Wakaf Indonesia (BWI) dan Menteri Agama, serta bersedia diaudit oleh akuntan publik."
+  },
+  {
+    "question": "Apa ketentuan perubahan status atau tukar menukar (ruislag) harta benda wakaf menurut Peraturan BWI No. 1 Tahun 2008?",
+    "ground_truth": "Tukar menukar harta benda wakaf harus ditukar dengan harta yang nilai dan manfaatnya minimal sama atau lebih tinggi dari harta semula, mendapat izin Menteri Agama, dan setelah melalui penilaian dari Tim Penilai Independen (Appraiser)."
+  },
+  {
+    "question": "Bolehkah wakif mewakafkan hartanya untuk jangka waktu tertentu (wakaf temporer)?",
+    "ground_truth": "Ya, wakif dapat mewakafkan sebagian uang miliknya untuk jangka waktu tertentu (wakaf temporer), di mana pokok uang wakaf akan dikembalikan kepada wakif setelah jangka waktu tersebut berakhir."
+  },
+  {
+    "question": "Apa syarat pembentukan perwakilan BWI di daerah?",
+    "ground_truth": "Perwakilan BWI Provinsi dibentuk oleh BWI Pusat, sedangkan BWI Kabupaten/Kota dibentuk oleh BWI Provinsi atas persetujuan BWI Pusat, terdiri dari dewan pertimbangan dan badan pelaksana."
+  },
+  {
+    "question": "Apa kewajiban utama nazhir terhadap harta benda wakaf?",
+    "ground_truth": "Nazhir wajib mengelola, memelihara, mengamankan, dan mengembangkan harta benda wakaf sesuai tujuan, fungsi, dan peruntukannya, serta melaporkan kegiatannya."
+  },
+  {
+    "question": "Apakah diperbolehkan menggunakan wakaf uang untuk investasi surat berharga syariah (sukuk)?",
+    "ground_truth": "Ya, pengelolaan wakaf uang dapat dilakukan melalui investasi pada produk-produk LKS atau instrumen keuangan syariah seperti Sukuk Negara Ritel (SBSN) yang dijamin aman dan menghasilkan bagi hasil untuk maukuf alaih."
+  }
+]

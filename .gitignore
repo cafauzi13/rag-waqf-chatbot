@@ -1,0 +1,32 @@
+# Environment variables
+.env
+
+# Python Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Vector DB (opsional jika ingin dibuat ulang via ingest.py)
+faiss_index/index.faiss
+faiss_index/index.pkl
+
+# Temporary & Output Results
+results/*.csv
+results/*.json
+
+# IDE / Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS Generated
+.DS_Store
+Thumbs.db
