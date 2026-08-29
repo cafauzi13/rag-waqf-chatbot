@@ -6,13 +6,10 @@ from typing import List, Dict, Any
 
 from datasets import Dataset
 from ragas import evaluate
-from ragas.llms import llm_factory
-from langchain_huggingface import HuggingFaceEmbeddings
-from ragas.metrics import faithfulness, answer_relevancy, context_precision, context_recall
-from openai import OpenAI
+from ragas.metrics.collections import Faithfulness, AnswerRelevancy, ContextPrecision, ContextRecall
 
 from src.pipeline import WaqfRAGPipeline
-from src.config import RESULTS_DIR, DATA_DIR, GEMINI_API_KEY, EMBEDDING_MODEL_NAME
+from src.config import RESULTS_DIR, DATA_DIR
 
 def load_evaluation_set() -> List[Dict[str, str]]:
     """
@@ -56,13 +53,13 @@ def run_blinded_responses_generation(pipeline: WaqfRAGPipeline, eval_set: List[D
         records.append({
             "query_id": qid,
             "question": query_text,
-            "model_name": "Gemini 3.6 Flash",
+            "model_name": "Gemini 2.0 Flash",
             "answer": gemini_answer,
             "contexts": gemini_contexts_clean,
             "ground_truth": ground_truth
         })
         
-        # 2. Jalankan untuk OpenAI (jika ada kuota)
+        # 2. Jalankan untuk OpenAI
         print("    - Menjalankan OpenAI...")
         try:
             openai_res = pipeline.query(query_text, model_choice="openai")
@@ -95,7 +92,6 @@ def run_blinded_responses_generation(pipeline: WaqfRAGPipeline, eval_set: List[D
 def evaluate_with_ragas(df_model: pd.DataFrame, model_name: str) -> Optional[Dict[str, float]]:
     """
     Menjalankan evaluasi Ragas untuk subset model tertentu.
-    Menggunakan Gemini 3.6 Flash sebagai Judge LLM dan HuggingFace Embeddings.
     """
     print(f"\n[INFO] Menjalankan evaluasi RAGAS untuk model: '{model_name}'...")
     
@@ -107,59 +103,37 @@ def evaluate_with_ragas(df_model: pd.DataFrame, model_name: str) -> Optional[Dic
     if has_errors:
         print(f"[WARNING] Evaluasi RAGAS untuk {model_name} dilewati karena terdapat error pada respons generasi.")
         return None
-
-    # Siapkan dataset dalam format Ragas
+        
+    # Konversi data ke format Dataset HuggingFace yang dibutuhkan Ragas
+    # Ragas butuh list of strings untuk question, answer, ground_truth, dan list of list of strings untuk contexts
     ragas_data = {
-        "user_input": df_filtered["question"].tolist(),
-        "retrieved_contexts": df_filtered["contexts"].tolist(),
-        "response": df_filtered["answer"].tolist(),
-        "reference": df_filtered["ground_truth"].tolist()
+        "question": df_filtered["question"].tolist(),
+        "contexts": df_filtered["contexts"].tolist(),
+        "answer": df_filtered["answer"].tolist(),
+        "ground_truth": df_filtered["ground_truth"].tolist()
     }
     
     dataset = Dataset.from_dict(ragas_data)
     
-    # Pastikan API key Gemini tersedia
-    api_key = os.getenv("GEMINI_API_KEY") or GEMINI_API_KEY
-    if not api_key:
-        print("[WARNING] GEMINI_API_KEY tidak ditemukan untuk Evaluator Judge Ragas.")
+    # Periksa ketersediaan OpenAI API Key karena Ragas default menggunakannya untuk evaluasi
+    if not os.getenv("OPENAI_API_KEY"):
+        print("[WARNING] OPENAI_API_KEY tidak ditemukan di environment. Ragas memerlukan OpenAI API Key sebagai evaluator judge.")
         return None
         
     try:
-        # Inisialisasi Evaluator LLM (Gemini via OpenAI-compatible endpoint)
-        gemini_client = OpenAI(
-            api_key=api_key,
-            base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-        )
-        evaluator_llm = llm_factory("gemini-3.6-flash", client=gemini_client)
-        
-        # Inisialisasi Embeddings untuk metrik relevansi
-        evaluator_embeddings = HuggingFaceEmbeddings(
-            model_name=EMBEDDING_MODEL_NAME,
-            model_kwargs={'device': 'cpu'},
-            encode_kwargs={'normalize_embeddings': True}
-        )
-        
         # Jalankan Ragas Evaluation
         result = evaluate(
             dataset=dataset,
             metrics=[
-                faithfulness,
-                answer_relevancy,
-                context_precision,
-                context_recall
-            ],
-            llm=evaluator_llm,
-            embeddings=evaluator_embeddings
+                Faithfulness(),
+                AnswerRelevancy(),
+                ContextPrecision(),
+                ContextRecall()
+            ]
         )
         
-        # Hitung skor rata-rata
-        df_result = result.to_pandas()
-        metric_cols = ["faithfulness", "answer_relevancy", "context_precision", "context_recall"]
-        metrics_summary = {}
-        for col in metric_cols:
-            if col in df_result.columns:
-                metrics_summary[col] = round(float(df_result[col].mean()), 4)
-                
+        # Konversi ke dictionary metrik
+        metrics_summary = {k: float(v) for k, v in result.items()}
         print(f"[SUCCESS] Evaluasi RAGAS untuk {model_name} selesai.")
         print(json.dumps(metrics_summary, indent=2))
         return metrics_summary
