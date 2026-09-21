@@ -39,8 +39,11 @@ def main():
             
         data.append({
             "chunk_id": i + 1,
-            "source": doc.metadata.get("source", "Unknown"),
-            "page": doc.metadata.get("page", "-"),
+            "kategori": doc.metadata.get("kategori", "-"),
+            "jenis": doc.metadata.get("jenis", "-"),
+            "sumber": doc.metadata.get("sumber") or doc.metadata.get("source", "Unknown"),
+            "unit": doc.metadata.get("unit", "-"),
+            "halaman": doc.metadata.get("halaman") or doc.metadata.get("page", "-"),
             "character_length": len(content_clean),
             "content": content_clean
         })

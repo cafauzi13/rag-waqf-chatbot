@@ -1,0 +1,32 @@
+# Konfigurasi pipeline RAG WaqfRAG/ZiswafRAG. Ini SUMBER KEBENARAN untuk
+# seluruh hyperparameter -- src/config.py membaca file ini saat import.
+#
+# Tiga skenario eksperimen skripsi = kombinasi use_retrieval/use_rerank,
+# BUKAN cabang kode terpisah:
+#   Skenario I   (LLM saja)      : use_retrieval=false, use_rerank=false
+#   Skenario II  (RAG tanpa rerank): use_retrieval=true,  use_rerank=false
+#   Skenario III (RAG + rerank)  : use_retrieval=true,  use_rerank=true
+
+# --- Model ---
+embedding_model: intfloat/multilingual-e5-base
+rerank_model: mixedbread-ai/mxbai-rerank-base-v2
+generator: gemini-3.6-flash   # atau gpt-4o-mini -- lihat src/pipeline.py model_choice
+temperature: 0
+
+# --- Chunking ---
+chunk_size: 800
+chunk_overlap: 80
+
+# --- Retrieval & Reranking (skenario default; bisa di-override per panggilan pipeline.query()) ---
+use_retrieval: true
+top_k_retrieval: 10
+use_rerank: true
+top_k_rerank: 3
+
+# --- Ambang cleaning PDF (src/cleaning.py) ---
+header_footer_threshold: 0.6
+header_footer_window_lines: 3
+min_pages_for_header_footer_detection: 4
+min_page_chars: 40
+dot_leader_ratio_threshold: 0.3
+blank_underscore_ratio_threshold: 0.6

@@ -1,14 +1,32 @@
+# Catatan environment (lihat README untuk detail):
+# - Direkomendasikan Python 3.11 (lebih matang untuk ekosistem torch/transformers
+#   di Windows dibanding Python 3.14 -- kombinasi 3.14 + torch CUDA + transformers
+#   pernah menyebabkan crash heap corruption saat memuat reranker ke GPU).
+# - Untuk GPU (CUDA), install torch secara terpisah SEBELUM baris di bawah, contoh:
+#     pip install torch==2.5.1+cu121 --index-url https://download.pytorch.org/whl/cu121
+#   Tanpa langkah ini, torch akan terpasang sebagai build CPU-only.
+
 python-dotenv
+pyyaml>=6.0
+openpyxl>=3.1.0
 langchain>=0.1.0
 langchain-community>=0.0.10
 langchain-core>=0.1.0
 langchain-huggingface>=0.0.1
 langchain-openai>=0.0.2
 langchain-google-genai>=1.0.0
+langchain-ollama>=0.2.0
 faiss-cpu>=1.7.4
-pypdf>=4.0.0
-sentence-transformers>=2.3.0
-transformers>=4.36.0
+# Ekstraksi PDF utama (layout-aware, dipakai untuk cleaning header/footer);
+# pymupdf sebagai fallback jika pdfplumber gagal parse, dan untuk render PNG debug.
+pdfplumber>=0.11.0
+pymupdf>=1.24.0
+# sentence-transformers >=5.4.0 wajib untuk model reranker mxbai-rerank-base-v2
+# (memakai modul CrossEncoder "LogitScore" berbasis causal LM, baru didukung sejak v5.4.0)
+sentence-transformers>=5.4.0
+# transformers >=4.49.0 wajib -- di bawah versi ini, head klasifikasi reranker
+# gagal ter-load dari checkpoint dan menghasilkan skor acak/tidak terlatih
+transformers>=4.49.0
 torch>=2.0.0
 ragas>=0.1.0
 streamlit>=1.30.0

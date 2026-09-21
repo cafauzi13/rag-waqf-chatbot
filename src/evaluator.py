@@ -53,7 +53,7 @@ def run_blinded_responses_generation(pipeline: WaqfRAGPipeline, eval_set: List[D
         records.append({
             "query_id": qid,
             "question": query_text,
-            "model_name": "Gemini 2.0 Flash",
+            "model_name": "Gemini 3.6 Flash",
             "answer": gemini_answer,
             "contexts": gemini_contexts_clean,
             "ground_truth": ground_truth

@@ -1,4 +1,5 @@
-from typing import List
+from typing import List, Optional
+import torch
 from langchain_core.documents import Document
 from sentence_transformers import CrossEncoder
 from src.config import RERANKER_MODEL_NAME
@@ -8,7 +9,10 @@ class WaqfReranker:
     Modul Re-ranker menggunakan model Cross-Encoder mixedbread-ai/mxbai-rerank-base-v2
     untuk menilai kecocokan dokumen hasil retrieval awal dengan kueri.
     """
-    def __init__(self, model_name: str = RERANKER_MODEL_NAME, device: str = "cpu"):
+    def __init__(self, model_name: str = RERANKER_MODEL_NAME, device: Optional[str] = None):
+        # Auto-deteksi GPU (CUDA) jika tersedia, fallback ke CPU jika tidak.
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
         print(f"[INFO] Inisialisasi Re-ranker dengan model '{model_name}' pada device '{device}'...")
         self.model = CrossEncoder(model_name, device=device)
 

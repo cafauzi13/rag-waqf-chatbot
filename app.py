@@ -108,42 +108,51 @@ with st.sidebar:
     # Pilihan Model LLM
     model_option = st.selectbox(
         "Pilih Generator LLM:",
-        ["Gemini 3.6 Flash", "GPT-4o Mini"],
+        ["Gemini 3.6 Flash", "GPT-4o Mini", "Llama 3.2 (Ollama - Lokal)"],
         index=0,
-        help="Gemini 3.6 Flash dan GPT-4o Mini akan dibandingkan sesuai proposal penelitian."
+        help="Gemini 3.6 Flash dan GPT-4o Mini akan dibandingkan sesuai proposal penelitian. Opsi Llama (Ollama) untuk uji coba lokal tanpa API key."
     )
-    model_choice = "gemini" if "Gemini" in model_option else "openai"
+    if "Gemini" in model_option:
+        model_choice = "gemini"
+    elif "GPT" in model_option:
+        model_choice = "openai"
+    else:
+        model_choice = "ollama"
     
     st.markdown("---")
-    
-    # Input API Key jika belum diset di .env
-    st.markdown("### 🔑 API Credentials")
-    
-    # Gemini API Key
-    gemini_key_env = os.getenv("GEMINI_API_KEY")
-    if not gemini_key_env:
-        gemini_key_input = st.text_input(
-            "Gemini API Key:",
-            type="password",
-            placeholder="Masukkan GEMINI_API_KEY..."
-        )
-        if gemini_key_input:
-            os.environ["GEMINI_API_KEY"] = gemini_key_input
+
+    if model_choice == "ollama":
+        st.markdown("### 🖥️ Ollama Lokal")
+        st.info("Model Llama berjalan lokal via Ollama, tidak memerlukan API key. Pastikan `ollama serve` aktif di komputer Anda.")
     else:
-        st.success("✅ GEMINI_API_KEY terdeteksi di .env")
-        
-    # OpenAI API Key
-    openai_key_env = os.getenv("OPENAI_API_KEY")
-    if not openai_key_env:
-        openai_key_input = st.text_input(
-            "OpenAI API Key:",
-            type="password",
-            placeholder="Masukkan OPENAI_API_KEY..."
-        )
-        if openai_key_input:
-            os.environ["OPENAI_API_KEY"] = openai_key_input
-    else:
-        st.success("✅ OPENAI_API_KEY terdeteksi di .env")
+        # Input API Key jika belum diset di .env
+        st.markdown("### 🔑 API Credentials")
+
+        # Gemini API Key
+        gemini_key_env = os.getenv("GEMINI_API_KEY")
+        if not gemini_key_env:
+            gemini_key_input = st.text_input(
+                "Gemini API Key:",
+                type="password",
+                placeholder="Masukkan GEMINI_API_KEY..."
+            )
+            if gemini_key_input:
+                os.environ["GEMINI_API_KEY"] = gemini_key_input
+        else:
+            st.success("✅ GEMINI_API_KEY terdeteksi di .env")
+
+        # OpenAI API Key
+        openai_key_env = os.getenv("OPENAI_API_KEY")
+        if not openai_key_env:
+            openai_key_input = st.text_input(
+                "OpenAI API Key:",
+                type="password",
+                placeholder="Masukkan OPENAI_API_KEY..."
+            )
+            if openai_key_input:
+                os.environ["OPENAI_API_KEY"] = openai_key_input
+        else:
+            st.success("✅ OPENAI_API_KEY terdeteksi di .env")
 
     st.markdown("---")
     st.markdown(
@@ -178,8 +187,8 @@ for message in st.session_state.messages:
                 with col1:
                     st.markdown("##### 🎯 Top-3 Reranked Chunks (Cross-Encoder)")
                     for doc in message["reranked_docs"]:
-                        source = doc.metadata.get("source", "Unknown")
-                        page = doc.metadata.get("page", "-")
+                        source = doc.metadata.get("sumber") or doc.metadata.get("source", "Unknown")
+                        page = doc.metadata.get("halaman") or doc.metadata.get("page", "-")
                         score = doc.metadata.get("rerank_score", 0.0)
                         content = doc.page_content[len("passage: "):] if doc.page_content.startswith("passage: ") else doc.page_content
                         st.markdown(
@@ -197,8 +206,8 @@ for message in st.session_state.messages:
                 with col2:
                     st.markdown("##### ⚡ Top-10 FAISS Retrieval Chunks")
                     for doc in message["retrieved_docs"]:
-                        source = doc.metadata.get("source", "Unknown")
-                        page = doc.metadata.get("page", "-")
+                        source = doc.metadata.get("sumber") or doc.metadata.get("source", "Unknown")
+                        page = doc.metadata.get("halaman") or doc.metadata.get("page", "-")
                         score = doc.metadata.get("similarity_score", 0.0)
                         content = doc.page_content[len("passage: "):] if doc.page_content.startswith("passage: ") else doc.page_content
                         st.markdown(
@@ -256,8 +265,8 @@ if user_query := st.chat_input("Tanyakan tentang regulasi wakaf uang, pendaftara
                 with col1:
                     st.markdown("##### 🎯 Top-3 Reranked Chunks (Cross-Encoder)")
                     for doc in reranked_docs:
-                        source = doc.metadata.get("source", "Unknown")
-                        page = doc.metadata.get("page", "-")
+                        source = doc.metadata.get("sumber") or doc.metadata.get("source", "Unknown")
+                        page = doc.metadata.get("halaman") or doc.metadata.get("page", "-")
                         score = doc.metadata.get("rerank_score", 0.0)
                         content = doc.page_content[len("passage: "):] if doc.page_content.startswith("passage: ") else doc.page_content
                         st.markdown(
@@ -275,8 +284,8 @@ if user_query := st.chat_input("Tanyakan tentang regulasi wakaf uang, pendaftara
                 with col2:
                     st.markdown("##### ⚡ Top-10 FAISS Retrieval Chunks")
                     for doc in retrieved_docs:
-                        source = doc.metadata.get("source", "Unknown")
-                        page = doc.metadata.get("page", "-")
+                        source = doc.metadata.get("sumber") or doc.metadata.get("source", "Unknown")
+                        page = doc.metadata.get("halaman") or doc.metadata.get("page", "-")
                         score = doc.metadata.get("similarity_score", 0.0)
                         content = doc.page_content[len("passage: "):] if doc.page_content.startswith("passage: ") else doc.page_content
                         st.markdown(
